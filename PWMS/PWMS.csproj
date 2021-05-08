@@ -1,0 +1,270 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{59586FEC-9A8C-4B38-AED4-C19A4326B6DF}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PWMS</RootNamespace>
+    <AssemblyName>PWMS</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DataClass\MyMeans.cs" />
+    <Compile Include="F_Login.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="F_Login.designer.cs">
+      <DependentUpon>F_Login.cs</DependentUpon>
+    </Compile>
+    <Compile Include="F_Main.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="F_Main.designer.cs">
+      <DependentUpon>F_Main.cs</DependentUpon>
+    </Compile>
+    <Compile Include="InfoAddForm\F_Address.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InfoAddForm\F_Address.designer.cs">
+      <DependentUpon>F_Address.cs</DependentUpon>
+    </Compile>
+    <Compile Include="InfoAddForm\F_Basic.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InfoAddForm\F_Basic.designer.cs">
+      <DependentUpon>F_Basic.cs</DependentUpon>
+    </Compile>
+    <Compile Include="InfoAddForm\F_ClewSet.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InfoAddForm\F_ClewSet.designer.cs">
+      <DependentUpon>F_ClewSet.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ModuleClass\MyModule.cs" />
+    <Compile Include="PerForm\F_AddressList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PerForm\F_AddressList.designer.cs">
+      <DependentUpon>F_AddressList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PerForm\F_ClearData.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PerForm\F_ClearData.designer.cs">
+      <DependentUpon>F_ClearData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PerForm\F_Find.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PerForm\F_Find.designer.cs">
+      <DependentUpon>F_Find.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PerForm\F_HaveBack.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PerForm\F_HaveBack.designer.cs">
+      <DependentUpon>F_HaveBack.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PerForm\F_ManFile.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PerForm\F_ManFile.designer.cs">
+      <DependentUpon>F_ManFile.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PerForm\F_Stat.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PerForm\F_Stat.designer.cs">
+      <DependentUpon>F_Stat.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PerForm\F_User.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PerForm\F_User.designer.cs">
+      <DependentUpon>F_User.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PerForm\F_UserAdd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PerForm\F_UserAdd.designer.cs">
+      <DependentUpon>F_UserAdd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PerForm\F_UserPope.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PerForm\F_UserPope.designer.cs">
+      <DependentUpon>F_UserPope.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PerForm\F_WordPad.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PerForm\F_WordPad.designer.cs">
+      <DependentUpon>F_WordPad.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="F_Login.resx">
+      <DependentUpon>F_Login.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="F_Main.resx">
+      <DependentUpon>F_Main.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InfoAddForm\F_Address.resx">
+      <DependentUpon>F_Address.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InfoAddForm\F_Basic.resx">
+      <DependentUpon>F_Basic.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InfoAddForm\F_ClewSet.resx">
+      <DependentUpon>F_ClewSet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PerForm\F_AddressList.resx">
+      <DependentUpon>F_AddressList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PerForm\F_ClearData.resx">
+      <DependentUpon>F_ClearData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PerForm\F_Find.resx">
+      <DependentUpon>F_Find.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PerForm\F_HaveBack.resx">
+      <DependentUpon>F_HaveBack.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PerForm\F_ManFile.resx">
+      <DependentUpon>F_ManFile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PerForm\F_Stat.resx">
+      <DependentUpon>F_Stat.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PerForm\F_User.resx">
+      <DependentUpon>F_User.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PerForm\F_UserAdd.resx">
+      <DependentUpon>F_UserAdd.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PerForm\F_UserPope.resx">
+      <DependentUpon>F_UserPope.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PerForm\F_WordPad.resx">
+      <DependentUpon>F_WordPad.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="Microsoft.Office.Core">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>8</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Interop.Excel">
+      <Guid>{00020813-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>9</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Interop.Word">
+      <Guid>{00020905-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>8</VersionMajor>
+      <VersionMinor>7</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="VBIDE">
+      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>3</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
