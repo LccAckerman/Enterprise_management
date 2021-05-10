@@ -1,7 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\PWMS",
+    "\\PWMS\\ModuleClass"
   ],
-  "SelectedNode": "\\PWMS.sln",
+  "SelectedNode": "\\PWMS\\ModuleClass\\MyModule.cs",
   "PreviewInSolutionExplorer": false
 }

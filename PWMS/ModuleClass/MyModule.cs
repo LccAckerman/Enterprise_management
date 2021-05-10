@@ -307,5 +307,212 @@ namespace PWMS.ModuleClass
             }
         }
         #endregion
+
+        #region  将日期转换成指定的格式
+        /// <summary>
+        /// 将日期转换成yyyy-mm-dd格式.
+        /// </summary>
+        /// <param name="NDate">日期</param>
+        /// <returns>返回String对象</returns>
+        public string Date_Format(string NDate)
+        {
+            string sm,sd;
+            int y, m, d;
+            try
+            {
+                y = Convert.ToDateTime(NDate).Year;
+                m = Convert.ToDateTime(NDate).Month;
+                d = Convert.ToDateTime(NDate).Day;
+            }
+            catch
+            {
+                return "";
+            }
+            if (y == 1900)
+                return "";
+            if (m < 10)
+                sm = "0" + Convert.ToString(m);
+            else
+                sm = Convert.ToString(m);
+            if (d < 10)
+                sd = "0" + Convert.ToString(d);
+            else
+                sd = Convert.ToString(d);
+            return Convert.ToString(y) + "-" + sm + "-" + sd;
+        }
+        #endregion
+
+        #region  将时间转换成指定的格式
+        /// <summary>
+        /// 将时间转换成yyyy-mm-dd格式.
+        /// </summary>
+        /// <param name="NDate">日期</param>
+        /// <returns>返回String对象</returns>
+        public string Time_Format(string NDate)
+        {
+            string sh, sm, se;
+            int hh, mm, ss;
+            try
+            {
+                hh = Convert.ToDateTime(NDate).Hour;
+                mm = Convert.ToDateTime(NDate).Minute;
+                ss = Convert.ToDateTime(NDate).Second;
+                
+            }
+            catch
+            {
+                return "";
+            }
+            sh = Convert.ToString(hh);
+            if (sh.Length < 2)
+                sh = "0" + sh;
+            sm = Convert.ToString(mm);
+            if (sm.Length < 2)
+                sm = "0" + sm;
+            se = Convert.ToString(ss);
+            if (se.Length < 2)
+                se = "0" + se;
+            return sh + sm + se;
+        }
+        #endregion
+
+        #region  设置MaskedTextBox控件的格式
+        /// <summary>
+        /// 将MaskedTextBox控件的格式设为yyyy-mm-dd格式.
+        /// </summary>
+        /// <param name="NDate">日期</param>
+        /// <param name="ID">数据表名称</param>
+        /// <returns>返回String对象</returns>
+        public void MaskedTextBox_Format(MaskedTextBox MTBox)
+        {
+            MTBox.Mask = "0000-00-00";
+            MTBox.ValidatingType = typeof(System.DateTime);
+        }
+        #endregion
+
+        #region  用按钮控制数据记录移动时，改变按钮的可用状态
+        /// <summary>
+        /// 设置按钮是否可用.
+        /// </summary>
+        /// <param name="B1">首记录按钮</param>
+        /// <param name="B2">上一条记录按钮</param>
+        /// <param name="B3">下一条记录按钮</param>
+        /// <param name="B4">尾记录按钮</param>
+        /// <param name="NDate">B1标识</param>
+        /// <param name="NDate">B2标识</param>
+        /// <param name="NDate">B3标识</param>
+        /// <param name="NDate">B4标识</param>
+        public void Ena_Button(Button B1, Button B2, Button B3, Button B4, int n1, int n2, int n3, int n4)
+        {
+            B1.Enabled = Convert.ToBoolean(n1);
+            B2.Enabled = Convert.ToBoolean(n2);
+            B3.Enabled = Convert.ToBoolean(n3);
+            B4.Enabled = Convert.ToBoolean(n4);
+        }
+        #endregion
+
+        #region  遍历清空指定的控件
+        /// <summary>
+        /// 清空所有控件下的所有控件.
+        /// </summary>
+        /// <param name="Con">可视化控件</param>
+        public void Clear_Control(Control.ControlCollection Con)
+        {
+            foreach (Control C in Con){ //遍历可视化组件中的所有控件
+                if (C.GetType().Name == "TextBox")  //判断是否为TextBox控件
+                    if (((TextBox)C).Visible == true)   //判断当前控件是否为显示状态
+                        ((TextBox)C).Clear();   //清空当前控件
+                if (C.GetType().Name == "MaskedTextBox")  //判断是否为MaskedTextBox控件
+                    if (((MaskedTextBox)C).Visible == true)   //判断当前控件是否为显示状态
+                        ((MaskedTextBox)C).Clear();   //清空当前控件
+                if (C.GetType().Name == "ComboBox")  //判断是否为ComboBox控件
+                    if (((ComboBox)C).Visible == true)   //判断当前控件是否为显示状态
+                        ((ComboBox)C).Text = "";   //清空当前控件的Text属性值
+                if (C.GetType().Name == "PictureBox")  //判断是否为PictureBox控件
+                    if (((PictureBox)C).Visible == true)   //判断当前控件是否为显示状态
+                        ((PictureBox)C).Image = null;   //清空当前控件的Image属性
+            }
+        }
+        #endregion
+
+        #region  保存添加或修改的信息
+        /// <summary>
+        /// 保存添加或修改的信息.
+        /// </summary>
+        /// <param name="Sarr">数据表中的所有字段</param>
+        /// <param name="ID1">第一个字段值</param>
+        /// <param name="ID2">第二个字段值</param>
+        /// <param name="Contr">指定控件的数据集</param>
+        /// <param name="BoxName">要搜索的控件名称</param>
+        /// <param name="TableName">数据表名称</param>
+        /// <param name="n">控件的个数</param>
+        /// <param name="m">标识，用于判断是添加还是修改</param>
+        public void Part_SaveClass(string Sarr, string ID1, string ID2, Control.ControlCollection Contr, string BoxName, string TableName, int n, int m)
+        {
+            string tem_Field = "", tem_Value = "";
+            int p = 2;
+            if (m == 1){    //当m为1时，表示添加数据信息
+                if (ID1 != "" && ID2 == ""){ //根据参数值判断添加的字段
+                    tem_Field = "ID";
+                    tem_Value = "'" + ID1 + "'";
+                    p = 1;
+                }
+                else{
+                    tem_Field = "Stu_ID,ID";
+                    tem_Value = "'" + ID1 + "','" + ID2 + "'";
+                }
+            }
+            else
+                if (m == 2){    //当m为2时，表示修改数据信息
+                    if (ID1 != "" && ID2 == ""){ //根据参数值判断添加的字段
+                        tem_Value = "ID='" + ID1 + "'";
+                        p = 1;
+                    }
+                    else
+                        tem_Value = "Stu_ID='" + ID1 + "',ID='" + ID2 + "'";
+                }
+                
+            if (m > 0){ //生成部份添加、修改语句
+                string[] Parr = Sarr.Split(Convert.ToChar(','));
+                for (int i = p; i < n; i++)
+                {
+                    string sID = BoxName + i.ToString();    //通过BoxName参数获取要进行操作的控件名称
+                    foreach (Control C in Contr){   //遍历控件集中的相关控件
+                        if (C.GetType().Name == "TextBox" | C.GetType().Name == "MaskedTextBox" | C.GetType().Name == "ComboBox")
+                            if (C.Name == sID){ //如果在控件集中找到相应的组件
+                                string Ctext = C.Text;
+                                if (C.GetType().Name == "MaskedTextBox")    //如果当前是MaskedTextBox控件
+                                    Ctext = Date_Format(C.Text);    //对当前控件的值进行格式化
+                                if (m == 1){    //组合SQL语句中insert的相关语句
+                                    tem_Field = tem_Field + "," + Parr[i];
+                                    if (Ctext == "")
+                                        tem_Value = tem_Value + "," + "NULL";
+                                    else
+                                        tem_Value = tem_Value + "," + "'" + Ctext + "'";
+                                }
+                                if (m == 2)
+                                {    //组合SQL语句中update的相关语句
+                                    if (Ctext=="")
+                                        tem_Value = tem_Value + "," + Parr[i] + "=NULL";
+                                    else
+                                        tem_Value = tem_Value + "," + Parr[i] + "='" + Ctext + "'";
+                                }
+                            }
+                    }
+                }
+                ADDs = "";
+                if (m == 1) //生成SQL的添加语句
+                    ADDs = "insert into " + TableName + " (" + tem_Field + ") values(" + tem_Value + ")";
+                if (m == 2) //生成SQL的修改语句
+                    if (ID2 == "")  //根据ID2参数，判断修改语句的条件
+                        ADDs = "update " + TableName + " set " + tem_Value + " where ID='" + ID1 + "'";
+                    else
+                        ADDs = "update " + TableName + " set " + tem_Value + " where ID='" + ID2 + "'";
+            }
+        }
+        #endregion
+
+
+
     }
 }
