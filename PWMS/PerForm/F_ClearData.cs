@@ -5,7 +5,6 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-
 namespace PWMS.PerForm
 {
     public partial class F_ClearData : Form
@@ -20,7 +19,6 @@ namespace PWMS.PerForm
         {
             MyMC.Clear_Table(groupBox1.Controls, "Table_");
         }
-
         private void ALL_Table_MouseDown(object sender, MouseEventArgs e)
         {
             bool tt = false;
@@ -36,9 +34,7 @@ namespace PWMS.PerForm
                     ((CheckBox)C).Checked = tt;
                 }
             }
-
         }
-
         private void Table_Branch_MouseUp(object sender, MouseEventArgs e)
         {
             if (((CheckBox)sender).Checked == false)
