@@ -712,5 +712,318 @@ namespace PWMS.ModuleClass
         }
         #endregion
 
+        #region  添加用户权限
+        /// <summary>
+        /// 在添加用户时，将权限模版中的信息添加到用户权限表中.
+        /// </summary>
+        /// <param name="ID">用户编号</param>
+        /// <param name="n">权限值</param>
+        /// <>
+        public void ADD_Pope(string ID,int n)
+        {
+            DataSet DSet;
+            DSet = MyDataClass.getDataSet("select PopeName from tb_PopeModel", "tb_PopeModel");
+            for (int i = 0; i < DSet.Tables[0].Rows.Count; i++)
+            {
+                MyDataClass.getsqlcom("insert into tb_UserPope (ID,PopeName,Pope) values('" + ID + "','" + Convert.ToString(DSet.Tables[0].Rows[i][0]) + "'," + n + ")");
+            }
+        }
+        #endregion
+
+        #region  清空所有数据表
+        /// <summary>
+        /// 清空数据库中的所有数据表.
+        /// </summary>
+        /// <param name="GBox">GroupBox控件的数据集</param>
+        /// <param name="TName">获取信息控件的部份名称</param>
+        public void Clear_Table(Control.ControlCollection GBox, string TName)
+        {
+            string sID = "";
+            foreach (Control C in GBox)
+            {
+                if (C.GetType().Name == "CheckBox")
+                {
+                    sID = C.Name;
+                    if (sID.IndexOf(TName) > -1)
+                    {
+                        if (((CheckBox)C).Checked == true)
+                        {
+                            string TableName = "";
+                            string[] Astr = sID.Split(Convert.ToChar('_'));
+                            TableName = "tb_" + Astr[1];
+                            if (Astr[1].ToUpper() == ("Clew").ToUpper())
+                            {
+                                MyDataClass.getsqlcom("update " + TableName + " set Fate=0,Unlock=0 where ID>0");
+                            }
+                            else
+                            {
+                                MyDataClass.getsqlcom("Delete " + TableName);
+                                if (Astr[1].ToUpper() == ("Login").ToUpper())
+                                {
+                                    MyDataClass.getsqlcom("insert into " + TableName + " (ID,Name,Pass) values('0001','TSoft','111')");
+                                    ADD_Pope("0001", 1);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        #endregion
+
+        #region  显示用户权限
+        /// <summary>
+        /// 显示指定用户的权限.
+        /// </summary>
+        /// <param name="GBox">GroupBox控件的数据集</param>
+        /// <param name="TName">获取用户编号</param>
+        public void Show_Pope(Control.ControlCollection GBox, string TID)
+        {
+            string sID = "";
+            string CheckName = "";
+            bool t = false;
+            DataSet DSet = MyDataClass.getDataSet("select ID,PopeName,Pope from tb_UserPope where ID='" + TID + "'", "tb_UserPope");
+            for (int i = 0; i < DSet.Tables[0].Rows.Count; i++)
+            {
+                sID = Convert.ToString(DSet.Tables[0].Rows[i][1]);
+                if ((int)(DSet.Tables[0].Rows[i][2]) == 1)
+                    t = true;
+                else
+                    t = false;
+                foreach (Control C in GBox)
+                {
+                    if (C.GetType().Name == "CheckBox")
+                    {
+                        CheckName = C.Name;
+                        if (CheckName.IndexOf(sID) > -1)
+                        {
+                            ((CheckBox)C).Checked = t;
+                        }
+                    }
+                }
+            }
+        }
+        #endregion
+
+        #region  修改指定用户权限
+        /// <summary>
+        /// 修改指定用户的权限.
+        /// </summary>
+        /// <param name="GBox">GroupBox控件的数据集</param>
+        /// <param name="TName">获取用户编号</param>
+        public void Amend_Pope(Control.ControlCollection GBox, string TID)
+        {
+            string CheckName = "";
+            int tt = 0;
+            foreach (Control C in GBox)
+            {
+                if (C.GetType().Name == "CheckBox")
+                {
+                    if (((CheckBox)C).Checked)
+                        tt = 1;
+                    else
+                        tt = 0;
+                    CheckName = C.Name;
+                    string[] Astr = CheckName.Split(Convert.ToChar('_'));
+                    MyDataClass.getsqlcom("update tb_UserPope set Pope=" + tt + " where (ID='" + TID + "') and (PopeName='" + Astr[1].Trim() + "')");
+                }
+            }
+
+        }
+        #endregion
+
+        #region  设置主窗体菜单不可用
+        /// <summary>
+        /// 设置主窗体菜单不可用.
+        /// </summary>
+        /// <param name="MenuS">MenuStrip控件</param>
+        public void MainMenuF(MenuStrip MenuS)
+        {
+            string Men = "";
+            for (int i = 0; i < MenuS.Items.Count; i++)
+            {
+                Men = ((ToolStripDropDownItem)MenuS.Items[i]).Name;
+                if (Men.IndexOf("Menu") == -1)
+                    ((ToolStripDropDownItem)MenuS.Items[i]).Enabled = false;
+                ToolStripDropDownItem newmenu = (ToolStripDropDownItem)MenuS.Items[i];
+                if (newmenu.HasDropDownItems && newmenu.DropDownItems.Count > 0)
+                    for (int j = 0; j < newmenu.DropDownItems.Count; j++)
+                    {
+                        Men = newmenu.DropDownItems[j].Name;
+                        if (Men.IndexOf("Menu") == -1)
+                            newmenu.DropDownItems[j].Enabled = false;
+                        ToolStripDropDownItem newmenu2 = (ToolStripDropDownItem)newmenu.DropDownItems[j];
+                        if (newmenu2.HasDropDownItems && newmenu2.DropDownItems.Count > 0)
+                            for (int p = 0; p < newmenu2.DropDownItems.Count; p++)
+                                newmenu2.DropDownItems[p].Enabled = false;
+                    }
+            }
+            
+        }
+        #endregion
+
+        #region  根据用户权限设置主窗体菜单
+        /// <summary>
+        /// 根据用户权限设置菜单是否可用.
+        /// </summary>
+        /// <param name="MenuS">MenuStrip控件</param>
+        /// <param name="UName">当前登录用户名</param>
+        public void MainPope(MenuStrip MenuS, String UName)
+        {
+            string Str = "";
+            string MenuName = "";
+            DataSet DSet = MyDataClass.getDataSet("select ID from tb_Login where Name='" + UName + "'", "tb_Login");    //获取当前登录用户的信息
+            string UID = Convert.ToString(DSet.Tables[0].Rows[0][0]);   //获取当前用户编号
+            DSet = MyDataClass.getDataSet("select ID,PopeName,Pope from tb_UserPope where ID='" + UID + "'", "tb_UserPope");    //获取当前用户的权限信息
+            bool bo = false;
+            for (int k = 0; k < DSet.Tables[0].Rows.Count; k++) //遍历当前用户的权限名称
+            {
+                Str = Convert.ToString(DSet.Tables[0].Rows[k][1]);  //获取权限名称
+                if (Convert.ToInt32(DSet.Tables[0].Rows[k][2]) == 1)    //判断权限是否可用
+                    bo = true;
+                else
+                    bo = false;
+                for (int i = 0; i < MenuS.Items.Count; i++) //遍历菜单栏中的一级菜单项
+                {
+                    ToolStripDropDownItem newmenu = (ToolStripDropDownItem)MenuS.Items[i];  //记录当前菜单项下的所有信息
+                    if (newmenu.HasDropDownItems && newmenu.DropDownItems.Count > 0)    //如果当前菜单项有子级菜单项
+                        for (int j = 0; j < newmenu.DropDownItems.Count; j++)    //遍历二级菜单项
+                        {
+                            MenuName = newmenu.DropDownItems[j].Name;   //获取当前菜单项的名称
+                            if (MenuName.IndexOf(Str) > -1) //如果包含权限名称
+                                newmenu.DropDownItems[j].Enabled = bo;  //根据权限设置可用状态
+                            ToolStripDropDownItem newmenu2 = (ToolStripDropDownItem)newmenu.DropDownItems[j];   //记录当前菜单项的所有信息
+                            if (newmenu2.HasDropDownItems && newmenu2.DropDownItems.Count > 0)  //如果当前菜单项有子级菜单项
+                                for (int p = 0; p < newmenu2.DropDownItems.Count; p++)  //遍历三级菜单项
+                                {
+                                    MenuName = newmenu2.DropDownItems[p].Name;  //获取当前菜单项的名称
+                                    if (MenuName.IndexOf(Str) > -1) //如果包含权限名称
+                                        newmenu2.DropDownItems[p].Enabled = bo;  //根据权限设置可用状态
+                                }
+                        }
+                }
+            }
+        }
+        #endregion
+
+        #region  用TreeView控件调用StatusStrip控件下各菜单的单击事件
+        /// <summary>
+        /// 用TreeView控件调用StatusStrip控件下各菜单的单击事件.
+        /// </summary>
+        /// <param name="MenuS">MenuStrip控件</param>
+        /// <param name="e">TreeView控件的TreeNodeMouseClickEventArgs类</param>
+        public void TreeMenuF(MenuStrip MenuS, TreeNodeMouseClickEventArgs e)
+        {
+            string Men = "";
+            for (int i = 0; i < MenuS.Items.Count; i++) //遍历MenuStrip控件中主菜单项
+            {
+                Men = ((ToolStripDropDownItem)MenuS.Items[i]).Name; //获取主菜单项的名称
+                if (Men.IndexOf("Menu") == -1)  //如果MenuStrip控件的菜单项没有子菜单
+                {
+                    if (((ToolStripDropDownItem)MenuS.Items[i]).Text == e.Node.Text)    //当节点名称与菜单项名称相等时
+                        if (((ToolStripDropDownItem)MenuS.Items[i]).Enabled == false)   //判断当前菜单项是否可用
+                        {
+                            MessageBox.Show("当前用户无权限调用" + "\"" + e.Node.Text + "\"" + "窗体");
+                            break;
+                        }
+                        else
+                            Show_Form(((ToolStripDropDownItem)MenuS.Items[i]).Text.Trim(), 1);  //调用相应的窗体
+                }
+                ToolStripDropDownItem newmenu = (ToolStripDropDownItem)MenuS.Items[i];
+                if (newmenu.HasDropDownItems && newmenu.DropDownItems.Count > 0)    //遍历二级菜单项
+                    for (int j = 0; j < newmenu.DropDownItems.Count; j++)
+                    {
+                        Men = newmenu.DropDownItems[j].Name;    //获取二级菜单项的名称
+                        if (Men.IndexOf("Menu") == -1)
+                        {
+                            if ((newmenu.DropDownItems[j]).Text == e.Node.Text)
+                                if ((newmenu.DropDownItems[j]).Enabled == false)
+                                {
+                                    MessageBox.Show("当前用户无权限调用" + "\"" + e.Node.Text + "\"" + "窗体");
+                                    break;
+                                }
+                                else
+                                    Show_Form((newmenu.DropDownItems[j]).Text.Trim(), 1);
+                        }
+                        ToolStripDropDownItem newmenu2 = (ToolStripDropDownItem)newmenu.DropDownItems[j];
+                        if (newmenu2.HasDropDownItems && newmenu2.DropDownItems.Count > 0)  //遍历三级菜单项
+                            for (int p = 0; p < newmenu2.DropDownItems.Count; p++)
+                            {
+                                if ((newmenu2.DropDownItems[p]).Text == e.Node.Text)
+                                    if ((newmenu2.DropDownItems[p]).Enabled == false)
+                                    {
+                                        MessageBox.Show("当前用户无权限调用" + "\"" + e.Node.Text + "\"" + "窗体");
+                                        break;
+                                    }
+                                    else
+                                        if ((newmenu2.DropDownItems[p]).Text.Trim() == "员工生日提示" || (newmenu2.DropDownItems[p]).Text.Trim() == "员工合同提示")
+                                            Show_Form((newmenu2.DropDownItems[p]).Text.Trim(), 1);
+                                        else
+                                            Show_Form((newmenu2.DropDownItems[p]).Text.Trim(), 2);
+                            }
+                    }
+            }
+
+        }
+        #endregion
+
+        #region  查询指定范围内生日与合同到期的职工
+        /// <summary>
+        /// 查询指定范围内生日与合同到期的职工.
+        /// </summary>
+        /// <param name="i">标识，判断查询的是生日，还是合同</param>
+        public void PactDay(int i)
+        {
+            DataSet DSet = MyDataClass.getDataSet("select * from tb_Clew where kind=" + i + " and unlock=1", "tb_clew");
+            if (DSet.Tables[0].Rows.Count > 0)
+            {
+                string Vfield = "";
+                string dSQL = "";
+                int sday = Convert.ToInt32(DSet.Tables[0].Rows[0][1]);
+                if (i == 1)
+                {
+                    Vfield = "Birthday";
+                    dSQL = "select * from tb_Stuffbasic where (datediff(day,getdate(),convert(Nvarchar(12),cast (cast (year(getdate()) as char(4))+'-'+ cast(month(" + Vfield + ") as char(2))+'-'+	cast (day(" + Vfield + ") as char(2)) as datetime),110))<=" + sday + ") and (datediff(day,getdate(),convert(Nvarchar(12),cast (cast (year(getdate()) as char(4))+'-'+ cast(month(" + Vfield + ") as char(2))+'-'+cast (day(" + Vfield + ") as char(2)) as datetime),110))>=0)";
+                }
+                else
+                {
+                    Vfield = "Pact_E";
+                    dSQL = "select * from tb_Stuffbasic where ((getdate()-convert(Nvarchar(12)," + Vfield + ",110))>=-" + sday + " and (getdate()-convert(Nvarchar(12)," + Vfield + ",110))<=0)";
+                }
+                DSet = MyDataClass.getDataSet(dSQL, "tb_Stuffbasic");
+                if (DSet.Tables[0].Rows.Count > 0)
+                {
+                    if (i == 1)
+                        Vfield = "是否查看" + sday.ToString() + "天内过生日的职工信息？";
+                    else
+                        Vfield = "是否查看" + sday.ToString() + "天内合同到期的职工信息？";
+                    if (MessageBox.Show(Vfield, "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+                    {
+                        DataClass.MyMeans.AllSql = dSQL;
+                        Show_Form("人事档案浏览", 1);
+                    }
+                }
+            }
+        }
+        #endregion
+
+        #region  将图片存储到数据库中
+        /// <summary>
+        /// 以二进制的形式将图片存储到数据库中.
+        /// </summary>
+        /// <param name="MID">职工编号</param>
+        /// <param name="p">图片的二进制形式</param>
+        public void SaveImage(string MID, byte[] p)
+        {
+            MyDataClass.con_open();
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("update tb_Stuffbasic Set Photo=@Photo where ID="+MID);
+            SqlCommand cmd = new SqlCommand(strSql.ToString(), DataClass.MyMeans.My_con);
+            cmd.Parameters.Add("@Photo", SqlDbType.Binary).Value = p;
+            cmd.ExecuteNonQuery();
+            DataClass.MyMeans.My_con.Close();
+        }
+        #endregion
+
     }
 }
