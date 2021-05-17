@@ -454,5 +454,38 @@
         }
 
         #endregion
+
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox User_Name;
+        private System.Windows.Forms.TextBox User_ID;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.CheckBox User_NewLogon;
+        private System.Windows.Forms.CheckBox User_WordBook;
+        private System.Windows.Forms.CheckBox User_Counter;
+        private System.Windows.Forms.CheckBox User_Clear;
+        private System.Windows.Forms.CheckBox User_Back;
+        private System.Windows.Forms.CheckBox User_AddressBook;
+        private System.Windows.Forms.CheckBox User_DayWordPad;
+        private System.Windows.Forms.CheckBox User_Stusum;
+        private System.Windows.Forms.CheckBox User_Stufind;
+        private System.Windows.Forms.CheckBox User_Stuffbusic;
+        private System.Windows.Forms.CheckBox User_ClewBargain;
+        private System.Windows.Forms.CheckBox User_ClewBirthday;
+        private System.Windows.Forms.CheckBox User_WordPad;
+        private System.Windows.Forms.CheckBox User_RPKind;
+        private System.Windows.Forms.CheckBox User_Duthcall;
+        private System.Windows.Forms.CheckBox User_Business;
+        private System.Windows.Forms.CheckBox User_Laborage;
+        private System.Windows.Forms.CheckBox User_Branch;
+        private System.Windows.Forms.CheckBox User_Visage;
+        private System.Windows.Forms.CheckBox User_Kultur;
+        private System.Windows.Forms.CheckBox User_EmployeeGenre;
+        private System.Windows.Forms.CheckBox User_Folk;
+        private System.Windows.Forms.CheckBox User_Setup;
+        private System.Windows.Forms.CheckBox User_All;
+        private System.Windows.Forms.Button User_Save;
+        private System.Windows.Forms.Button User_Close;
     }
 }
