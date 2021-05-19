@@ -481,11 +481,6 @@
         private System.Windows.Forms.CheckBox User_Branch;
         private System.Windows.Forms.CheckBox User_Visage;
         private System.Windows.Forms.CheckBox User_Kultur;
-        private System.Windows.Forms.CheckBox User_EmployeeGenre;
-        private System.Windows.Forms.CheckBox User_Folk;
-        private System.Windows.Forms.CheckBox User_Setup;
-        private System.Windows.Forms.CheckBox User_All;
-        private System.Windows.Forms.Button User_Save;
-        private System.Windows.Forms.Button User_Close;
+
     }
 }
