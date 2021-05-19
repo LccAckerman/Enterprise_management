@@ -111,6 +111,7 @@ namespace PWMS.InfoAddForm
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.Size = new System.Drawing.Size(581, 215);
             this.dataGridView1.TabIndex = 0;
+            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // groupBox2
             // 
@@ -135,6 +136,7 @@ namespace PWMS.InfoAddForm
             this.Address_Quit.TabIndex = 9;
             this.Address_Quit.Text = "ÍË³ö";
             this.Address_Quit.UseVisualStyleBackColor = true;
+            this.Address_Quit.Click += new System.EventHandler(this.Address_Quit_Click);
             // 
             // Address_Delete
             // 
@@ -253,6 +255,7 @@ namespace PWMS.InfoAddForm
             this.Controls.Add(this.groupBox1);
             this.Name = "F_Address";
             this.Text = "F_AddressList";
+            this.Load += new System.EventHandler(this.F_Address_Load_1);
             this.groupBox3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.groupBox2.ResumeLayout(false);
@@ -263,6 +266,21 @@ namespace PWMS.InfoAddForm
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void F_Address_Load_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Address_Quit_Click(object sender, EventArgs e)
         {
 
         }
