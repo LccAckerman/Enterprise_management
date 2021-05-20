@@ -15,6 +15,12 @@ namespace PWMS.InfoAddForm
             InitializeComponent();
         }
 
+        DataClass.MyMeans MyDataClass = new PWMS.DataClass.MyMeans();
+        ModuleClass.MyModule MyMC = new PWMS.ModuleClass.MyModule();
+        public static DataSet MyDS_Grid;
+        public static string Address_ID = "";
+
+
         private GroupBox groupBox2;
         private Button button2;
         private Button button1;
@@ -79,6 +85,7 @@ namespace PWMS.InfoAddForm
             this.button2.TabIndex = 1;
             this.button2.Text = "取消";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // button1
             // 
@@ -251,6 +258,7 @@ namespace PWMS.InfoAddForm
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Name = "F_Address";
+            this.Load += new System.EventHandler(this.F_Address_Load);
             this.groupBox2.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -260,7 +268,39 @@ namespace PWMS.InfoAddForm
 
         private void button1_Click(object sender, EventArgs e)
         {
+            if (this.Address_1.Text != "")
+            {
+                MyMC.Part_SaveClass("ID,Name,Sex,Phone,Handset,WordPhone,QQ,E_Mail", Address_ID, "", this.groupBox1.Controls, "Address_", "tb_AddressBook", 8, (int)this.Tag);
+                MyDataClass.getsqlcom(ModuleClass.MyModule.ADDs);
+                this.Close();
+            }
+            else
+                MessageBox.Show("人员姓名不能为空。");
+        }
 
+        private void button2_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void F_Address_Load(object sender, EventArgs e)
+        {
+            if ((int)(this.Tag) == 1)
+            {
+                Address_ID = MyMC.GetAutocoding("tb_AddressBook", "ID");
+            }
+            if ((int)this.Tag == 2)
+            {
+                MyDS_Grid = MyDataClass.getDataSet("select ID,Name,Sex,Phone,Handset,WordPhone,QQ,E_Mail from tb_AddressBook where ID='" + ModuleClass.MyModule.Address_ID + "'", "tb_AddressBook");
+                Address_ID = MyDS_Grid.Tables[0].Rows[0][0].ToString();
+                this.Address_1.Text = MyDS_Grid.Tables[0].Rows[0][1].ToString();
+                this.Address_2.Text = MyDS_Grid.Tables[0].Rows[0][2].ToString();
+                this.Address_3.Text = MyDS_Grid.Tables[0].Rows[0][3].ToString();
+                this.Address_4.Text = MyDS_Grid.Tables[0].Rows[0][4].ToString();
+                this.Address_5.Text = MyDS_Grid.Tables[0].Rows[0][5].ToString();
+                this.Address_6.Text = MyDS_Grid.Tables[0].Rows[0][6].ToString();
+                this.Address_7.Text = MyDS_Grid.Tables[0].Rows[0][7].ToString();
+            }
         }
     }
 }
