@@ -15,29 +15,7 @@ namespace PWMS.InfoAddForm
         {
             InitializeComponent();
         }
-        DataClass.MyMeans MyDClass = new PWMS.DataClass.MyMeans();
-        public static string reField = "";  //记录要修改的字段
-        public static int indvar = -1;
-        private void F_Basic_Load(object sender, EventArgs e)
-        {
-            listBox1.Items.Clear();
-            DataSet My_Set = MyDClass.getDataSet(DataClass.MyMeans.Mean_SQL, DataClass.MyMeans.Mean_Table);
-            if (My_Set.Tables[0].Rows.Count > 0)
-            for (int i = 0; i < My_Set.Tables[0].Rows.Count; i++)
-            {
-                listBox1.Items.Add(My_Set.Tables[0].Rows[i][1].ToString());
-            }
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-
-        }
+    
 
         private void listBox1_SelectedValueChanged(object sender, EventArgs e)
         {
@@ -49,21 +27,7 @@ namespace PWMS.InfoAddForm
                 button3.Enabled = true;
             }
         }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button4_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button5_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
+        
 
         private GroupBox groupBox3;
         private Button button5;
@@ -108,6 +72,7 @@ namespace PWMS.InfoAddForm
             this.button5.TabIndex = 6;
             this.button5.Text = "退出";
             this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // button4
             // 
@@ -118,6 +83,7 @@ namespace PWMS.InfoAddForm
             this.button4.TabIndex = 5;
             this.button4.Text = "取消";
             this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // button1
             // 
@@ -128,7 +94,7 @@ namespace PWMS.InfoAddForm
             this.button1.TabIndex = 2;
             this.button1.Text = "添加";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 
@@ -140,7 +106,7 @@ namespace PWMS.InfoAddForm
             this.button2.TabIndex = 3;
             this.button2.Text = "修改";
             this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click_1);
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // button3
             // 
@@ -152,6 +118,7 @@ namespace PWMS.InfoAddForm
             this.button3.TabIndex = 4;
             this.button3.Text = "删除";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // F_Basic
             // 
@@ -163,14 +130,65 @@ namespace PWMS.InfoAddForm
 
         }
 
-        private void button2_Click_1(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
-
+            bool t = false;
+            string temField = "";
+            if (textBox1.Text != "")
+            {
+                temField = textBox1.Text.Trim();
+                SqlDataReader temDR = MyDClass.getcom("select * from " + DataClass.MyMeans.Mean_Table.Trim() + " where " + DataClass.MyMeans.Mean_Field.Trim() + "='" + temField + "'");
+                t = temDR.Read();
+                if (t == false)
+                {
+                    MyDClass.getsqlcom("insert into " + DataClass.MyMeans.Mean_Table.Trim() + "(" + DataClass.MyMeans.Mean_Field.Trim() + ") values(" + "'" + temField + "'" + ")");
+                    listBox1.Items.Add(textBox1.Text.Trim());
+                    textBox1.Text = "";
+                }
+            }
         }
 
-        private void button1_Click_1(object sender, EventArgs e)
+        private void button2_Click(object sender, EventArgs e)
         {
+            bool t = false;
+            string temField = "";
+            if (textBox1.Text != "")
+            {
+                temField = textBox1.Text.Trim();
+                SqlDataReader temDR = MyDClass.getcom("select * from " + DataClass.MyMeans.Mean_Table.Trim() + " where " + DataClass.MyMeans.Mean_Field.Trim() + "='" + reField + "'");
+                t = temDR.Read();
+                if (t == true)
+                {
+                    temField = temDR[0].ToString();
+                    MyDClass.getsqlcom("update " + DataClass.MyMeans.Mean_Table.Trim() + " set " + DataClass.MyMeans.Mean_Field.Trim() + "='" + textBox1.Text.Trim() + "' where ID='" + temField + "'");
+                    if (indvar >= 0)
+                        listBox1.Items[indvar] = (textBox1.Text.Trim());
+                    textBox1.Text = "";
+                }
+            }
+            button4_Click(sender, e);
+        }
 
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (reField != "" & indvar >= 0)
+            {
+                MyDClass.getsqlcom("delete from " + DataClass.MyMeans.Mean_Table.Trim() + " where " + DataClass.MyMeans.Mean_Field.Trim() + "='" + reField + "'");
+                listBox1.Items.Remove(listBox1.Items[listBox1.SelectedIndex]);
+                listBox1.SelectedIndex = -1;
+            }
+            button4_Click(sender, e);
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            button2.Enabled = false;
+            button3.Enabled = false;
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
