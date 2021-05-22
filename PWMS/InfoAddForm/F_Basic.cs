@@ -15,19 +15,16 @@ namespace PWMS.InfoAddForm
         {
             InitializeComponent();
         }
-    
+
+        DataClass.MyMeans MyDClass = new PWMS.DataClass.MyMeans();
+        public static string reField = "";  //记录要修改的字段
+        public static int indvar = -1;
 
         private void listBox1_SelectedValueChanged(object sender, EventArgs e)
         {
-            if (listBox1.SelectedIndex>=0)
-            {
-                reField = listBox1.SelectedItem.ToString();
-                indvar = listBox1.SelectedIndex;
-                button2.Enabled = true;
-                button3.Enabled = true;
-            }
+
         }
-        
+
 
         private GroupBox groupBox3;
         private Button button5;
@@ -44,7 +41,13 @@ namespace PWMS.InfoAddForm
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.listBox1 = new System.Windows.Forms.ListBox();
             this.groupBox3.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox3
@@ -54,7 +57,7 @@ namespace PWMS.InfoAddForm
             this.groupBox3.Controls.Add(this.button1);
             this.groupBox3.Controls.Add(this.button2);
             this.groupBox3.Controls.Add(this.button3);
-            this.groupBox3.Location = new System.Drawing.Point(301, 39);
+            this.groupBox3.Location = new System.Drawing.Point(292, 13);
             this.groupBox3.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(4);
@@ -120,12 +123,63 @@ namespace PWMS.InfoAddForm
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.textBox1);
+            this.groupBox2.Location = new System.Drawing.Point(4, 271);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox2.Size = new System.Drawing.Size(280, 59);
+            this.groupBox2.TabIndex = 8;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "输入添加\\修改的信息";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(16, 24);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(4);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(248, 25);
+            this.textBox1.TabIndex = 6;
+            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.listBox1);
+            this.groupBox1.Location = new System.Drawing.Point(4, 13);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox1.Size = new System.Drawing.Size(280, 250);
+            this.groupBox1.TabIndex = 7;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "基本信息";
+            // 
+            // listBox1
+            // 
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.ItemHeight = 15;
+            this.listBox1.Location = new System.Drawing.Point(16, 31);
+            this.listBox1.Margin = new System.Windows.Forms.Padding(4);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(248, 199);
+            this.listBox1.TabIndex = 6;
+            this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
+            // 
             // F_Basic
             // 
             this.ClientSize = new System.Drawing.Size(494, 440);
+            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupBox3);
             this.Name = "F_Basic";
+            this.Text = "F_Basic";
+            this.Load += new System.EventHandler(this.F_Basic_Load);
             this.groupBox3.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -189,6 +243,32 @@ namespace PWMS.InfoAddForm
         private void button5_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private GroupBox groupBox2;
+        private TextBox textBox1;
+        private GroupBox groupBox1;
+        private ListBox listBox1;
+
+        private void F_Basic_Load(object sender, EventArgs e)
+        {
+            listBox1.Items.Clear();
+            DataSet My_Set = MyDClass.getDataSet(DataClass.MyMeans.Mean_SQL, DataClass.MyMeans.Mean_Table);
+            if (My_Set.Tables[0].Rows.Count > 0)
+                for (int i = 0; i < My_Set.Tables[0].Rows.Count; i++)
+                {
+                    listBox1.Items.Add(My_Set.Tables[0].Rows[i][1].ToString());
+                }
+        }
+
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
