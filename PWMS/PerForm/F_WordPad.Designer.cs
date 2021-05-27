@@ -62,4 +62,31 @@
 
 
         }
-}
+
+        #endregion
+
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.CheckBox checkBox2;
+        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.CheckBox checkBox3;
+        private System.Windows.Forms.TextBox WordPad_4;
+        private System.Windows.Forms.TextBox WordPad_3;
+        private System.Windows.Forms.ComboBox WordPad_2;
+        private System.Windows.Forms.DateTimePicker WordPad_1;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button Word_Save;
+        private System.Windows.Forms.Button Word_Cancel;
+        private System.Windows.Forms.Button Word_Delete;
+        private System.Windows.Forms.Button Word_Amend;
+        private System.Windows.Forms.Button Word_Add;
+    }
