@@ -18,15 +18,17 @@ namespace PWMS.PerForm
         DataClass.MyMeans MyDataClass = new PWMS.DataClass.MyMeans();
         public static DataSet MyDS_Grid;
         public string ARsign = " AND ";
-        public static string Sut_SQL = "select ID as ±àºÅ,StuffName as Ö°¹¤ĞÕÃû,Folk as Ãñ×åÀà±ğ,Birthday as ³öÉúÈÕÆÚ,Age as ÄêÁä,Kultur as ÎÄ»¯³Ì¶È,Marriage as »éÒö,Sex as ĞÔ±ğ,Visage as ÕşÖÎÃæÃ²,IDCard as Éí·İÖ¤ºÅ,Workdate as µ¥Î»¹¤×÷Ê±¼ä,WorkLength as ¹¤Áä,Employee as Ö°¹¤Àà±ğ,Business as Ö°ÎñÀà±ğ,Laborage as ¹¤×ÊÀà±ğ,Branch as ²¿ÃÅÀà±ğ,Duthcall as Ö°³ÆÀà±ğ,Phone as µç»°,Handset as ÊÖ»ú,School as ±ÏÒµÑ§Ğ£,Speciality as Ö÷ĞŞ×¨Òµ,GraduateDate as ±ÏÒµÊ±¼ä,M_Pay as ÔÂ¹¤×Ê,Bank as ÒøĞĞÕÊºÅ,Pact_B as ºÏÍ¬¿ªÊ¼Ê±¼ä,Pact_E as ºÏÍ¬½áÊøÊ±¼ä,Pact_Y as ºÏÍ¬ÄêÏŞ,BeAware as ¼®¹áËùÔÚÊ¡,City as ¼®¹áËùÔÚÊĞ from tb_Stuffbasic";
+        
+        
+        public static string Sut_SQL = "select ID as ç¼–å·,StuffName as èŒå·¥å§“å,Folk as æ°‘æ—ç±»åˆ«,Birthday as å‡ºç”Ÿæ—¥æœŸ,Age as å¹´é¾„,Kultur as æ–‡åŒ–ç¨‹åº¦,Marriage as å©šå§»,Sex as æ€§åˆ«,Visage as æ”¿æ²»é¢è²Œ,IDCard as èº«ä»½è¯å·,Workdate as å•ä½å·¥ä½œæ—¶é—´,WorkLength as å·¥é¾„,Employee as èŒå·¥ç±»åˆ«,Business as èŒåŠ¡ç±»åˆ«,Laborage as å·¥èµ„ç±»åˆ«,Branch as éƒ¨é—¨ç±»åˆ«,Duthcall as èŒç§°ç±»åˆ«,Phone as ç”µè¯,Handset as æ‰‹æœº,School as æ¯•ä¸šå­¦æ ¡,Speciality as ä¸»ä¿®ä¸“ä¸š,GraduateDate as æ¯•ä¸šæ—¶é—´,M_Pay as æœˆå·¥èµ„,Bank as é“¶è¡Œå¸å·,Pact_B as åˆåŒå¼€å§‹æ—¶é—´,Pact_E as åˆåŒç»“æŸæ—¶é—´,Pact_Y as åˆåŒå¹´é™,BeAware as ç±è´¯æ‰€åœ¨çœ,City as ç±è´¯æ‰€åœ¨å¸‚ from tb_Stuffbasic";
 
-        #region  Çå¿Õ¿Ø¼ş¼¯ÉÏµÄ¿Ø¼şĞÅÏ¢
+        #region  æ¸…ç©ºæ§ä»¶é›†ä¸Šçš„æ§ä»¶ä¿¡æ¯
         /// <summary>
-        /// Çå¿ÕGroupBox¿Ø¼şÉÏµÄ¿Ø¼şĞÅÏ¢.
+        /// æ¸…ç©ºGroupBoxæ§ä»¶ä¸Šçš„æ§ä»¶ä¿¡æ¯.
         /// </summary>
-        /// <param name="n">¿Ø¼ş¸öÊı</param>
-        /// <param name="GBox">GroupBox¿Ø¼şµÄÊı¾İ¼¯</param>
-        /// <param name="TName">»ñÈ¡ĞÅÏ¢¿Ø¼şµÄ²¿·İÃû³Æ</param>
+        /// <param name="n">æ§ä»¶ä¸ªæ•°</param>
+        /// <param name="GBox">GroupBoxæ§ä»¶çš„æ•°æ®é›†</param>
+        /// <param name="TName">è·å–ä¿¡æ¯æ§ä»¶çš„éƒ¨ä»½åç§°</param>
         private void Clear_Box(int n, Control.ControlCollection GBox, string TName)
         {
             for (int i = 0; i < n; i++)
@@ -45,27 +47,32 @@ namespace PWMS.PerForm
         
         private void F_Find_Load(object sender, EventArgs e)
         {
-            MyMC.CoPassData(Find_Folk, "tb_Folk");  //Ïò¡°Ãñ×åÀà±ğ¡±ÁĞ±í¿òÖĞÌí¼ÓĞÅÏ¢
-            MyMC.CoPassData(Find_Kultur, "tb_Kultur");  //Ïò"ÎÄ»¯³Ì¶È¡±ÁĞ±í¿òÖĞÌí¼ÓĞÅÏ¢
-            MyMC.CoPassData(Find_Visage, "tb_Visage");  //Ïò"ÕıÖÎÃæÃ²¡±ÁĞ±í¿òÖĞÌí¼ÓĞÅÏ¢
-            MyMC.CoPassData(Find_Employee, "tb_EmployeeGenre");  //Ïò"Ö°¹¤Àà±ğ¡±ÁĞ±í¿òÖĞÌí¼ÓĞÅÏ¢
-            MyMC.CoPassData(Find_Business, "tb_Business");  //Ïò"Ö°ÎñÀà±ğ¡±ÁĞ±í¿òÖĞÌí¼ÓĞÅÏ¢
-            MyMC.CoPassData(Find_Laborage, "tb_Laborage");  //Ïò"¹¤×ÊÀà±ğ¡±ÁĞ±í¿òÖĞÌí¼ÓĞÅÏ¢
-            MyMC.CoPassData(Find_Branch, "tb_Branch");  //Ïò"²¿ÃÅÀà±ğ¡±ÁĞ±í¿òÖĞÌí¼ÓĞÅÏ¢
-            MyMC.CoPassData(Find_Duthcall, "tb_Duthcall");  //Ïò"Ö°³ÆÀà±ğ¡±ÁĞ±í¿òÖĞÌí¼ÓĞÅÏ¢
-            //ÏòÏÂÀ­ÁĞ±íÖĞÌí¼ÓÊ¡Ãû
+            MyMC.CoPassData(Find_Folk, "tb_Folk");  //å‘â€œæ°‘æ—ç±»åˆ«â€åˆ—è¡¨æ¡†ä¸­æ·»åŠ ä¿¡æ¯
+            MyMC.CoPassData(Find_Kultur, "tb_Kultur");  //å‘"æ–‡åŒ–ç¨‹åº¦â€åˆ—è¡¨æ¡†ä¸­æ·»åŠ ä¿¡æ¯
+            MyMC.CoPassData(Find_Visage, "tb_Visage");  //å‘"æ­£æ²»é¢è²Œâ€åˆ—è¡¨æ¡†ä¸­æ·»åŠ ä¿¡æ¯
+            MyMC.CoPassData(Find_Employee, "tb_EmployeeGenre");  //å‘"èŒå·¥ç±»åˆ«â€åˆ—è¡¨æ¡†ä¸­æ·»åŠ ä¿¡æ¯
+            MyMC.CoPassData(Find_Business, "tb_Business");  //å‘"èŒåŠ¡ç±»åˆ«â€åˆ—è¡¨æ¡†ä¸­æ·»åŠ ä¿¡æ¯
+            MyMC.CoPassData(Find_Laborage, "tb_Laborage");  //å‘"å·¥èµ„ç±»åˆ«â€åˆ—è¡¨æ¡†ä¸­æ·»åŠ ä¿¡æ¯
+            MyMC.CoPassData(Find_Branch, "tb_Branch");  //å‘"éƒ¨é—¨ç±»åˆ«â€åˆ—è¡¨æ¡†ä¸­æ·»åŠ ä¿¡æ¯
+            MyMC.CoPassData(Find_Duthcall, "tb_Duthcall");  //å‘"èŒç§°ç±»åˆ«â€åˆ—è¡¨æ¡†ä¸­æ·»åŠ ä¿¡æ¯
+            //å‘ä¸‹æ‹‰åˆ—è¡¨ä¸­æ·»åŠ çœå
             MyMC.CityInfo(Find_BeAware, "select distinct beaware from tb_City", 0);
-            //ÏòÏÂÀ­ÁĞ±íÖĞÌí¼ÓÊĞÃû
+            //å‘ä¸‹æ‹‰åˆ—è¡¨ä¸­æ·»åŠ å¸‚å
             MyMC.CityInfo(Find_School, "select distinct School from tb_Stuffbasic", 0);
-            //ÏòÏÂÀ­ÁĞ±íÖĞÌí¼ÓÖ÷ĞŞ×¨Òµ
+            //å‘ä¸‹æ‹‰åˆ—è¡¨ä¸­æ·»åŠ ä¸»ä¿®ä¸“ä¸š
             MyMC.CityInfo(Find_Speciality, "select distinct Speciality from tb_Stuffbasic", 0);
-            MyMC.MaskedTextBox_Format(Find1_WorkDate);  //Ö¸¶¨MaskedTextBox¿Ø¼şµÄ¸ñÊ½
+            MyMC.MaskedTextBox_Format(Find1_WorkDate);  //æŒ‡å®šMaskedTextBoxæ§ä»¶çš„æ ¼å¼
             MyMC.MaskedTextBox_Format(Find2_WorkDate);
-            //¸ù¾İSQLÓï¾ä½øĞĞ²éÑ¯
+            //æ ¹æ®SQLè¯­å¥è¿›è¡ŒæŸ¥è¯¢
             MyDS_Grid = MyDataClass.getDataSet(Sut_SQL, "tb_Stuffbasic");
             dataGridView1.DataSource = MyDS_Grid.Tables[0];
             dataGridView1.AutoGenerateColumns = true;
 
+        }  
+        
+        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        {
+            ARsign = " AND ";
         }
 
         private void Find_BeAware_TextChanged(object sender, EventArgs e)
@@ -74,10 +81,7 @@ namespace PWMS.PerForm
             MyMC.CityInfo(Find_City, "select beaware,city from tb_City where beaware='" + Find_BeAware.Text.Trim() + "'", 1);
         }
 
-        private void radioButton1_CheckedChanged(object sender, EventArgs e)
-        {
-            ARsign = " AND ";
-        }
+      
 
         private void radioButton2_CheckedChanged(object sender, EventArgs e)
         {
@@ -86,25 +90,25 @@ namespace PWMS.PerForm
 
         private void button1_Click(object sender, EventArgs e)
         {
-            ModuleClass.MyModule.FindValue = "";    //Çå¿Õ´æ´¢²éÑ¯Óï¾äµÄ±äÁ¿
-            string Find_SQL = Sut_SQL;  //´æ´¢ÏÔÊ¾Êı¾İ±íÖĞËùÓĞĞÅÏ¢µÄSQLÓï¾ä
-            MyMC.Find_Grids(groupBox1.Controls, "Find", ARsign);    //½«Ö¸¶¨¿Ø¼ş¼¯ÏÂµÄ¿Ø¼ş×éºÏ³É²éÑ¯Ìõ¼ş
+            ModuleClass.MyModule.FindValue = "";    //æ¸…ç©ºå­˜å‚¨æŸ¥è¯¢è¯­å¥çš„å˜é‡
+            string Find_SQL = Sut_SQL;  //å­˜å‚¨æ˜¾ç¤ºæ•°æ®è¡¨ä¸­æ‰€æœ‰ä¿¡æ¯çš„SQLè¯­å¥
+            MyMC.Find_Grids(groupBox1.Controls, "Find", ARsign);    //å°†æŒ‡å®šæ§ä»¶é›†ä¸‹çš„æ§ä»¶ç»„åˆæˆæŸ¥è¯¢æ¡ä»¶
             MyMC.Find_Grids(groupBox2.Controls, "Find", ARsign);
-            //µ±ºÏÍ¬µÄÆğÊ¼ÈÕÆÚºÍ½áÊøÈÕÆÚ²»Îª¿ÕÊ±
+            //å½“åˆåŒçš„èµ·å§‹æ—¥æœŸå’Œç»“æŸæ—¥æœŸä¸ä¸ºç©ºæ—¶
             if (MyMC.Date_Format(Find1_WorkDate.Text) != "" && MyMC.Date_Format(Find2_WorkDate.Text) != "")
             {
-                if (ModuleClass.MyModule.FindValue != "")   //Èç¹ûFindValue×Ö¶Î²»Îª¿Õ
-                    //ÓÃARsign±äÁ¿Á¬½Ó²éÑ¯Ìõ¼ş
+                if (ModuleClass.MyModule.FindValue != "")   //å¦‚æœFindValueå­—æ®µä¸ä¸ºç©º
+                    //ç”¨ARsignå˜é‡è¿æ¥æŸ¥è¯¢æ¡ä»¶
                     ModuleClass.MyModule.FindValue = ModuleClass.MyModule.FindValue + ARsign;
-                //ÉèÖÃºÏÍ¬ÈÕÆÚµÄ²éÑ¯Ìõ¼ş
+                //è®¾ç½®åˆåŒæ—¥æœŸçš„æŸ¥è¯¢æ¡ä»¶
                 ModuleClass.MyModule.FindValue = ModuleClass.MyModule.FindValue + " (" + "workdate>='" + Find1_WorkDate.Text + "' AND workdate<='" + Find2_WorkDate.Text + "')";
             }
-            if (ModuleClass.MyModule.FindValue != "")   //Èç¹ûFindValue×Ö¶Î²»Îª¿Õ
-                //½«²éÑ¯Ìõ¼şÌí¼Óµ½SQLÓï¾äµÄÎ²²¿
+            if (ModuleClass.MyModule.FindValue != "")   //å¦‚æœFindValueå­—æ®µä¸ä¸ºç©º
+                //å°†æŸ¥è¯¢æ¡ä»¶æ·»åŠ åˆ°SQLè¯­å¥çš„å°¾éƒ¨
                 Find_SQL = Find_SQL + " where " + ModuleClass.MyModule.FindValue;
-            //°´ÕÕÖ¸¶¨µÄÌõ¼ş½øĞĞ²éÑ¯
+            //æŒ‰ç…§æŒ‡å®šçš„æ¡ä»¶è¿›è¡ŒæŸ¥è¯¢
             MyDS_Grid = MyDataClass.getDataSet(Find_SQL, "tb_Stuffbasic");
-            //ÔÚdataGridView1¿Ø¼şÊÇÏÔÊ¾²éÑ¯µÄ½á¹û
+            //åœ¨dataGridView1æ§ä»¶æ˜¯æ˜¾ç¤ºæŸ¥è¯¢çš„ç»“æœ
             dataGridView1.DataSource = MyDS_Grid.Tables[0];
             dataGridView1.AutoGenerateColumns = true;
             checkBox1.Checked = false;
@@ -128,7 +132,7 @@ namespace PWMS.PerForm
                 if (MyMC.Date_Format(Find1_WorkDate.Text) != "" && MyMC.Date_Format(Find2_WorkDate.Text) != "")
                 {
                     if (Convert.ToDateTime(Find2_WorkDate.Text) <= Convert.ToDateTime(Find1_WorkDate.Text))
-                        MessageBox.Show("µ±Ç°ÈÕÆÚ±ØĞë´óÓÚËüÇ°Ò»¸öÈÕÆÚ¡£");
+                        MessageBox.Show("å½“å‰æ—¥æœŸå¿…é¡»å¤§äºå®ƒå‰ä¸€ä¸ªæ—¥æœŸã€‚");
                 }
         }
 
@@ -156,7 +160,14 @@ namespace PWMS.PerForm
         {
             MyMC.Estimate_Key(e, "", 0);
         }
-
+        
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Clear_Box(7, groupBox1.Controls, "Find_");
+            Clear_Box(12, groupBox2.Controls, "Find");
+            Clear_Box(4, groupBox2.Controls, "Sign");
+        }
+        
         private void checkBox1_Click(object sender, EventArgs e)
         {
             if (checkBox1.Checked == true)
@@ -171,13 +182,6 @@ namespace PWMS.PerForm
         {
             this.Close();
         }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            Clear_Box(7, groupBox1.Controls, "Find_");
-            Clear_Box(12, groupBox2.Controls, "Find");
-            Clear_Box(4, groupBox2.Controls, "Sign");
-        }
+       
 
     }
-}
