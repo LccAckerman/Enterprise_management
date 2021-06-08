@@ -16,6 +16,7 @@ namespace PWMS.PerForm
         {
             InitializeComponent();
         }
+        
         DataClass.MyMeans MyDataClass = new PWMS.DataClass.MyMeans();
         ModuleClass.MyModule MyMC = new PWMS.ModuleClass.MyModule();
 
@@ -28,18 +29,19 @@ namespace PWMS.PerForm
                 Str_dar = textBox2.Text+ "\\";
             if (textBox2.Text == "" & radioButton2.Checked == true)
             {
-                MessageBox.Show("ÇëÑ¡Ôñ±¸·İÊı¾İ¿âÎÄ¼şµÄÂ·¾¶¡£");
+                MessageBox.Show("è¯·é€‰æ‹©å¤‡ä»½æ•°æ®åº“æ–‡ä»¶çš„è·¯å¾„ã€‚");
                 return;
             }
             try
             {
-                Str_dar = "backup database db_PWMS to disk='" + Str_dar+System.DateTime.Now.ToShortDateString().Replace("/","")+MyMC.Time_Format(System.DateTime.Now.ToString())+".bak" + "'";
+                Str_dar = "backup database db_PWMS to disk='" + Str_dar+System.DateTime.Now.ToShortDateString().Replace("/","")
+                + MyMC.Time_Format(System.DateTime.Now.ToString())+".bak" + "'";
                 MyDataClass.getsqlcom(Str_dar);
-                MessageBox.Show("Êı¾İ±¸·İ³É¹¦£¡", "ÌáÊ¾", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("æ•°æ®å¤‡ä»½æˆåŠŸï¼", "æç¤º", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "ÌáÊ¾", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(ex.Message, "æç¤º", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -55,7 +57,7 @@ namespace PWMS.PerForm
         {
             if (textBox3.Text == "")
             {
-                MessageBox.Show("ÇëÑ¡Ôñ±¸·İÊı¾İ¿âÎÄ¼şµÄÂ·¾¶¡£");
+                MessageBox.Show("è¯·é€‰æ‹©å¤‡ä»½æ•°æ®åº“æ–‡ä»¶çš„è·¯å¾„ã€‚");
                 return;
             }
             try
@@ -67,7 +69,7 @@ namespace PWMS.PerForm
                 //string DateStr = "Data Source=XIAOKE;Database=master;User id=sa;PWD=";
                 //SqlConnection conn = new SqlConnection(DateStr);
                 //conn.Open();
-                ////-------------------É±µôËùÓĞÁ¬½Ó db_PWMS Êı¾İ¿âµÄ½ø³Ì--------------
+                ////-------------------æ€æ‰æ‰€æœ‰è¿æ¥ db_PWMS æ•°æ®åº“çš„è¿›ç¨‹--------------
                 //string strSQL = "select spid from master..sysprocesses where dbid=db_id( 'db_PWMS') ";
                 //SqlDataAdapter Da = new SqlDataAdapter(strSQL, conn);
                 //DataTable spidTable = new DataTable();
@@ -77,7 +79,7 @@ namespace PWMS.PerForm
                 //Cmd.Connection = conn;
                 //for (int iRow = 0; iRow < spidTable.Rows.Count; iRow++)
                 //{
-                //    Cmd.CommandText = "kill " + spidTable.Rows[iRow][0].ToString();   //Ç¿ĞĞ¹Ø±ÕÓÃ»§½ø³Ì 
+                //    Cmd.CommandText = "kill " + spidTable.Rows[iRow][0].ToString();   //å¼ºè¡Œå…³é—­ç”¨æˆ·è¿›ç¨‹ 
                 //    Cmd.ExecuteNonQuery();
                 //}
                 //conn.Close();
@@ -93,26 +95,20 @@ namespace PWMS.PerForm
                 SQLcom.Dispose();
                 Tem_con.Close();
                 Tem_con.Dispose();
-                MessageBox.Show("Êı¾İ»¹Ô­³É¹¦£¡", "ÌáÊ¾", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("æ•°æ®è¿˜åŸæˆåŠŸï¼", "æç¤º", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 MyDataClass.con_open();
                 MyDataClass.con_close();
-                MessageBox.Show("ÎªÁË±ÜÃâÊı¾İ¶ªÊ§£¬ÔÚÊı¾İ¿âÔ­»¹ºó½«¹Ø±ÕÕû¸öÏµÍ³¡£");
+                MessageBox.Show("ä¸ºäº†é¿å…æ•°æ®ä¸¢å¤±ï¼Œåœ¨æ•°æ®åº“åŸè¿˜åå°†å…³é—­æ•´ä¸ªç³»ç»Ÿã€‚");
                 Application.Exit();
-            }
+            }  
+            
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "ÌáÊ¾", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(ex.Message, "æç¤º", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
-        private void button4_Click(object sender, EventArgs e)
-        {
-            openFileDialog1.Filter = "*.bak|*.bak";
-            if (openFileDialog1.ShowDialog(this) == DialogResult.OK)
-            {
-                textBox3.Text = openFileDialog1.FileName;
-            }
-        }
+        
 
         private void button6_Click(object sender, EventArgs e)
         {
@@ -122,6 +118,15 @@ namespace PWMS.PerForm
         private void button3_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+        
+        private void button4_Click(object sender, EventArgs e)
+        {
+            openFileDialog1.Filter = "*.bak|*.bak";
+            if (openFileDialog1.ShowDialog(this) == DialogResult.OK)
+            {
+                textBox3.Text = openFileDialog1.FileName;
+            }
         }
     }
 }
