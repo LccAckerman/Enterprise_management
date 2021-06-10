@@ -22,7 +22,13 @@ namespace PWMS.InfoAddForm
 
         private void listBox1_SelectedValueChanged(object sender, EventArgs e)
         {
-
+            if (listBox1.SelectedIndex >= 0)
+            {
+                reField = listBox1.SelectedItem.ToString();
+                indvar = listBox1.SelectedIndex;
+                button2.Enabled = true;
+                button3.Enabled = true;
+            }
         }
 
 
@@ -155,6 +161,7 @@ namespace PWMS.InfoAddForm
             this.groupBox1.TabIndex = 7;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "基本信息";
+            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
             // listBox1
             // 
@@ -166,6 +173,7 @@ namespace PWMS.InfoAddForm
             this.listBox1.Size = new System.Drawing.Size(248, 199);
             this.listBox1.TabIndex = 6;
             this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
+            this.listBox1.SelectedValueChanged += new System.EventHandler(this.listBox1_SelectedValueChanged);
             // 
             // F_Basic
             // 
@@ -267,6 +275,13 @@ namespace PWMS.InfoAddForm
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        
+
+        private void groupBox1_Enter(object sender, EventArgs e)
         {
 
         }

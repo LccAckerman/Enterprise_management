@@ -832,8 +832,35 @@ namespace PWMS.ModuleClass
         }
         #endregion
 
+        #region  设置主窗体菜单不可用
+        /// <summary>
+        /// 设置主窗体菜单不可用.
+        /// </summary>
+        /// <param name="MenuS">MenuStrip控件</param>
+        public void MainMenuF(MenuStrip MenuS)
+        {
+            string Men = "";
+            for (int i = 0; i < MenuS.Items.Count; i++)
+            {
+                Men = ((ToolStripDropDownItem)MenuS.Items[i]).Name;
+                if (Men.IndexOf("Menu") == -1)
+                    ((ToolStripDropDownItem)MenuS.Items[i]).Enabled = false;
+                ToolStripDropDownItem newmenu = (ToolStripDropDownItem)MenuS.Items[i];
+                if (newmenu.HasDropDownItems && newmenu.DropDownItems.Count > 0)
+                    for (int j = 0; j < newmenu.DropDownItems.Count; j++)
+                    {
+                        Men = newmenu.DropDownItems[j].Name;
+                        if (Men.IndexOf("Menu") == -1)
+                            newmenu.DropDownItems[j].Enabled = false;
+                        ToolStripDropDownItem newmenu2 = (ToolStripDropDownItem)newmenu.DropDownItems[j];
+                        if (newmenu2.HasDropDownItems && newmenu2.DropDownItems.Count > 0)
+                            for (int p = 0; p < newmenu2.DropDownItems.Count; p++)
+                                newmenu2.DropDownItems[p].Enabled = false;
+                    }
+            }
 
-
+        }
+        #endregion
 
         #region  根据用户权限设置主窗体菜单
         /// <summary>
@@ -980,6 +1007,22 @@ namespace PWMS.ModuleClass
         }
         #endregion
 
-
+        #region  将图片存储到数据库中
+        /// <summary>
+        /// 以二进制的形式将图片存储到数据库中.
+        /// </summary>
+        /// <param name="MID">职工编号</param>
+        /// <param name="p">图片的二进制形式</param>
+        public void SaveImage(string MID, byte[] p)
+        {
+            MyDataClass.con_open();
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("update tb_Stuffbasic Set Photo=@Photo where ID=" + MID);
+            SqlCommand cmd = new SqlCommand(strSql.ToString(), DataClass.MyMeans.My_con);
+            cmd.Parameters.Add("@Photo", SqlDbType.Binary).Value = p;
+            cmd.ExecuteNonQuery();
+            DataClass.MyMeans.My_con.Close();
+        }
+        #endregion
     }
 }
