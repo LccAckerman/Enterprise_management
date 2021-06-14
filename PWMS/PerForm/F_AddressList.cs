@@ -17,13 +17,13 @@ namespace PWMS.PerForm
         DataClass.MyMeans MyDataClass = new PWMS.DataClass.MyMeans();
         ModuleClass.MyModule MyMC = new PWMS.ModuleClass.MyModule();
         public static DataSet MyDS_Grid;
-        public static string AllSql = "Select ID,Name as ĞÔÃû,Sex as ĞÔ±ğ,Phone as µç»°,WordPhone as ¹¤×÷µç»°,Handset as ÊÖ»ú, QQ as QQºÅ,E_Mail as ÓÊÏäµØÖ· from tb_AddressBook";
+        public static string AllSql = "Select ID,Name as æ€§å,Sex as æ€§åˆ«,Phone as ç”µè¯,WordPhone as å·¥ä½œç”µè¯,Handset as æ‰‹æœº, QQ as QQå·,E_Mail as é‚®ç®±åœ°å€ from tb_AddressBook";
         public static string Find_Field = "";
         
         public void ShowAll()
         {
             ModuleClass.MyModule.Address_ID = "";
-            //ÓÃdataGridView1¿Ø¼şÏÔÊ¾Ö°¹¤µÄÃû³Æ
+            //ç”¨dataGridView1æ§ä»¶æ˜¾ç¤ºèŒå·¥çš„åç§°
             MyDS_Grid = MyDataClass.getDataSet(AllSql, "tb_AddressBook");
             dataGridView1.DataSource = MyDS_Grid.Tables[0];
             dataGridView1.Columns[0].Visible = false;
@@ -44,19 +44,12 @@ namespace PWMS.PerForm
             ShowAll();
         }
 
-        private void Address_Add_Click(object sender, EventArgs e)
-        {
-            InfoAddForm.F_Address FrmAddress = new PWMS.InfoAddForm.F_Address();
-            FrmAddress.Text = "Í¨Ñ¶Â¼Ìí¼Ó²Ù×÷";
-            FrmAddress.Tag = 1;
-            FrmAddress.ShowDialog(this);
-            ShowAll();
-        }
+        
 
         private void Address_Amend_Click(object sender, EventArgs e)
         {
             InfoAddForm.F_Address FrmAddress = new PWMS.InfoAddForm.F_Address();
-            FrmAddress.Text = "Í¨Ñ¶Â¼ĞŞ¸Ä²Ù×÷";
+            FrmAddress.Text = "é€šè®¯å½•ä¿®æ”¹æ“ä½œ";
             FrmAddress.Tag = 2;
             FrmAddress.ShowDialog(this);
             ShowAll();
@@ -77,10 +70,27 @@ namespace PWMS.PerForm
                 Address_Delete.Enabled = false;
             }
         }
-
+        
+        
+        
+        private void Address_Add_Click(object sender, EventArgs e)
+        {
+            InfoAddForm.F_Address FrmAddress = new PWMS.InfoAddForm.F_Address();
+            FrmAddress.Text = "é€šè®¯å½•æ·»åŠ æ“ä½œ";
+            FrmAddress.Tag = 1;
+            FrmAddress.ShowDialog(this);
+            ShowAll();
+        }
+        
+        
+        private void Address_Quit_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+        
         private void Address_Delete_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("È·¶¨ÒªÉ¾³ı¸ÃÌõĞÅÏ¢Âğ£¿", "ÌáÊ¾", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+            if (MessageBox.Show("ç¡®å®šè¦åˆ é™¤è¯¥æ¡ä¿¡æ¯å—ï¼Ÿ", "æç¤º", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
             {
                 MyDataClass.getsqlcom("Delete tb_AddressBook where ID='" + ModuleClass.MyModule.Address_ID + "'");
                 ShowAll();
@@ -108,16 +118,16 @@ namespace PWMS.PerForm
                     }
             }
         }
-
+        
         private void button5_Click(object sender, EventArgs e)
         {
             if (textBox1.Text == "")
             {
-                MessageBox.Show("ÇëÊäÈë²éÑ¯Ìõ¼ş¡£");
+                MessageBox.Show("è¯·è¾“å…¥æŸ¥è¯¢æ¡ä»¶ã€‚");
                 return;
             }
             ModuleClass.MyModule.Address_ID = "";
-            //ÓÃdataGridView1¿Ø¼şÏÔÊ¾Ö°¹¤µÄÃû³Æ
+            //ç”¨dataGridView1æ§ä»¶æ˜¾ç¤ºèŒå·¥çš„åç§°
             MyDS_Grid = MyDataClass.getDataSet(AllSql+" where "+Find_Field+" like '%"+textBox1.Text.Trim()+"%'", "tb_AddressBook");
             dataGridView1.DataSource = MyDS_Grid.Tables[0];
             dataGridView1.Columns[0].Visible = false;
@@ -126,21 +136,18 @@ namespace PWMS.PerForm
                 Address_Amend.Enabled = true;
                 Address_Delete.Enabled = true;
             }
+            
             else
             {
                 Address_Amend.Enabled = false;
                 Address_Delete.Enabled = false;
             }
         }
-
+        
         private void button1_Click(object sender, EventArgs e)
         {
             ShowAll();
         }
-
-        private void Address_Quit_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
+       
     }
 }
